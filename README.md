@@ -180,4 +180,4 @@ According to the challenge description, each frame of our sample data file have 
 
 The main advantages of this storage are: flexible, scalability and easy to manipulate and to extract for analytics.  
 
-If we want to get in scalability within our Kafka environment, it could be interesting to multiple nodes in the cluster and the consumer groups or to use big data tools in the consumer part (instead of our stdout. 
+If we want to get in scalability within our Kafka environment, it could be interesting to multiple nodes in the cluster and the consumer groups or to use big data tools in the consumer part (instead of our stdout). 
