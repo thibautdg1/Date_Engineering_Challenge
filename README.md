@@ -76,80 +76,81 @@ From my producer console and after dowloading the sample data, I could import it
 Reading data means to configure a Kafka consumer with a group ID (to gain in scalability) to receive and process records, and the logging setup. Basically, we can imagine a code in Java to read data from the file of data imported into our cluster. On a Java IDE, we can have a code like that: 
 
 `
-package com.cloudurable.kafka;
+      package com.cloudurable.kafka;
 
-import org.apache.kafka.clients.consumer.*;
+      import org.apache.kafka.clients.consumer.*;
 
-import org.apache.kafka.clients.consumer.Consumer;
+      import org.apache.kafka.clients.consumer.Consumer;
 
-import org.apache.kafka.common.serialization.LongDeserializer;
+      import org.apache.kafka.common.serialization.LongDeserializer;
 
-import org.apache.kafka.common.serialization.StringDeserializer;
+      import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.util.Collections;
+      import java.util.Collections;
 
-import java.util.Properties;
+      import java.util.Properties;
 
-public class KafkaConsumerTest { 
-      private final static String TOPIC = "test"; 
-      private final static String BOOTSTRAP_SERVER = "localhost:9092"; 
+      public class KafkaConsumerTest { 
+            private final static String TOPIC = "test"; 
+            private final static String BOOTSTRAP_SERVER = "localhost:9092"; 
 
-      private static Consumer<Long, String> createConsumer() { 
-      '''Creation of consumer to process records'''
-          final Properties props = new Properties(); 
-          props.put(ConsumerConfig.BOOTSTRAP_SERVER_CONFIG, BOOTSTRAP_SERVER); 
-          props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaTestConsumer"); 
-          props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, 
-          LongDeserializer.class.getName()); 
-          props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, 
-          StringDeserializer.class.getName()); 
+            private static Consumer<Long, String> createConsumer() { 
+            '''Creation of consumer to process records'''
+                  final Properties props = new Properties(); 
+                  props.put(ConsumerConfig.BOOTSTRAP_SERVER_CONFIG, BOOTSTRAP_SERVER); 
+                  props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaTestConsumer"); 
+                  props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, 
+                  LongDeserializer.class.getName()); 
+                  props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, 
+                  StringDeserializer.class.getName()); 
 
-          final Consumer<Long, String> consumer =   # Create the consumer using props. 
-                new KafkaConsumer<>(props); 
+                  final Consumer<Long, String> consumer =   # Create the consumer using props. 
+                        new KafkaConsumer<>(props); 
 
-          consumer.subscribe(Collections.singletonList(TOPIC));    #Subscribe to the topic. 
-                return consumer; 
+                  consumer.subscribe(Collections.singletonList(TOPIC));    #Subscribe to the topic. 
+                        return consumer; 
                 
-          } 
+                  } 
 
-          static void runConsumer() throws InterruptedException { 
-          ''' Process Records from Consumer '''
-          final Consumer<Long, String> consumer = createConsumer(); 
-          final int maxRecordsCount = 1000 int noRecordsCount = 0; 
+                  static void runConsumer() throws InterruptedException { 
+                  ''' Process Records from Consumer '''
+                  final Consumer<Long, String> consumer = createConsumer(); 
+                  final int maxRecordsCount = 1000 int noRecordsCount = 0; 
 
-          while (true) { 
-            final ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000); 
-            if (consumerRecords.count()==0) { 
-            noRecordsCount++;
-            if (noRecordsCount > giveUp) break; 
-            else continue; 
-            }           
+                  while (true) { 
+                        final ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000); 
+                        if (consumerRecords.count()==0) { 
+                        noRecordsCount++;
+                        if (noRecordsCount > giveUp) break; 
+                        else continue; 
+                        }           
 
-        consumerRecords.forEach(record -> { 
-            System.stdout.printf("Consumer Record:(%d, %s, %d, %d)\n", 
-                record.key(), record.value(), 
-                record.partition(), record.offset()); 
-            }); 
+            consumerRecords.forEach(record -> { 
+                  System.stdout.printf("Consumer Record:(%d, %s, %d, %d)\n", 
+                        record.key(), record.value(), 
+                        record.partition(), record.offset()); 
+                  }); 
 
-        consumer.commitAsync(); 
+            consumer.commitAsync(); 
+                  } 
+
+            consumer.close(); 
+            System.stdout.println("DONE"); 
+
             } 
 
-        consumer.close(); 
-        System.stdout.println("DONE"); 
-
-        } 
-
-}` 
+      }` 
 
 To run the consumer: 
 
-`public class KafkaConsumerTest { 
+`
+      public class KafkaConsumerTest { 
 
-        public static void main(String... args) throws Exception { 
-                runConsumer(); 
-        } 
+            public static void main(String... args) throws Exception { 
+                   runConsumer(); 
+            } 
 
-}` 
+      }` 
 
 The `main` method is basically calls `runConsumer` here. 
 
