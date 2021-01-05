@@ -75,13 +75,13 @@ From my producer console and after dowloading the sample data, I could import it
 
 Reading data means to configure a Kafka consumer with a group ID (to gain in scalability) to receive and process records, and the logging setup. Basically, we can imagine a code in Java to read data from the file of data imported into our cluster. On a Java IDE, we can have a code like that: 
 
-`package com.cloudurable.kafka; 
-import org.apache.kafka.clients.consumer.*; 
-import org.apache.kafka.clients.consumer.Consumer; 
-import org.apache.kafka.common.serialization.LongDeserializer; 
-import org.apache.kafka.common.serialization.StringDeserializer; 
-import java.util.Collections; 
-import java.util.Properties; 
+`package com.cloudurable.kafka;
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.common.serialization.LongDeserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import java.util.Collections;
+import java.util.Properties;
 
 public class KafkaConsumerTest { 
       private final static String TOPIC = "test"; 
