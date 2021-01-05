@@ -2,23 +2,13 @@
 
 ## Challenge's context 
 
-The asked challenge needs to work with Apache Kafka. Kafka is an open-source and real-time stream-processing software platform written in Scala and Java. This technology works with APIs to stream data between a producer and a consumer. The basic architecture with this tool is the following: 
-
-![](https://github.com/thibautdg1/Hiring_Challenge/blob/master/apache-kafka-apis.png) 
+The asked challenge needs to work with Apache Kafka. Kafka is an open-source and real-time stream-processing software platform written in Scala and Java. This technology works with APIs to stream data between a producer and a consumer. 
 
 A Kafka cluster is basically built with some brokers and a Zookeeper server. Each broker in a Kafka cluster is a single server that can receive messages from producers, assigns offsets to them, and commits the messages to storage on disk. It also services consumers, responding to fetch requests for partitions and responding with the messages that have been committed to disk. 
 
 Secondly, Apache Kafka uses Zookeeper to store metadata about the Kafka cluster, as well as consumer client details.  
 
-These details about the Kafka cluster are summarized in the diagram below: 
-
-![](https://github.com/thibautdg1/Hiring_Challenge/blob/master/Kafka-Architecture.png) 
-
 Within a cluster of brokers, one broker will also function as the cluster controller (elected automatically from the live members of the cluster). The controller is responsible for administrative operations, including assigning partitions to brokers and monitoring for broker failures. A partition is owned by a single broker in the cluster, and that broker is called the leader of the partition. A partition may be assigned to multiple brokers, which will result in the partition being replicated to provide a reduncy of messages within the partition. 
-
-The following figure shows a replication of partitions in a cluster: 
-
-![](https://github.com/thibautdg1/Hiring_Challenge/blob/master/Replication%20of%20partitions.png) 
 
 To stream data with Kafka, we need to add to this cluster bloc a streams bloc. Kafka Stream processes event in real time (no micro-batching like Spark Streaming i.e.) and allows you handle the late arrival of data seamlessly by using different logical components: 
 
@@ -31,10 +21,6 @@ To stream data with Kafka, we need to add to this cluster bloc a streams bloc. K
 7. Record: A key-value pair, streams are composed of records 
 8. Tables: used to maintain a state inside a Kafka Stream application 
 (Source: confluent) 
-
-The following figure describes this Streams architecture: 
-
-![](https://github.com/thibautdg1/Hiring_Challenge/blob/master/streams-architecture.jpg) 
 
 ### Goal 
 
